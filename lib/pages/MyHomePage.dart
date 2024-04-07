@@ -94,11 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 12.0,
             ),
             OutlinedButton(
-                onPressed: () async {}, child: const Text('Open Camera')),
+              onPressed: getImageFromCamera,
+              child: const Text('Open Camera'),
+            ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: getImageFromCamera),
+      // floatingActionButton: FloatingActionButton(onPressed: ),
     );
   }
 }
