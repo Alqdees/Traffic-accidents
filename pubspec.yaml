@@ -13,7 +13,7 @@ dependencies:
 
   cupertino_icons:
   image_picker:
-  camera:
+  permission_handler:
 
 dev_dependencies:
   flutter_test:
