@@ -14,6 +14,7 @@ dependencies:
   cupertino_icons:
   image_picker:
   permission_handler:
+  geolocator:
 
 dev_dependencies:
   flutter_test:
