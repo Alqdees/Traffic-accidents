@@ -102,12 +102,14 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.yellowAccent,
         title: const Text('Traffic accidents'),
-        leading: IconButton(
-          icon: const Icon(Icons.save),
-          onPressed: () {
-            //! here to save data
-          },
-        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.save),
+            onPressed: () {
+              //! here to save data
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
