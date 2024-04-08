@@ -13,10 +13,22 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late PermissionStatus _cameraPermissionStatus;
+  TextEditingController date = TextEditingController(
+    text: '${DateTime.now().year}'
+        ' - '
+        '${DateTime.now().month}'
+        ' - '
+        '${DateTime.now().day}',
+  );
+  TextEditingController name1 = TextEditingController();
+  TextEditingController number1 = TextEditingController();
+  TextEditingController name2 = TextEditingController();
+  TextEditingController number = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+
     _requestCameraPermission();
   }
 
@@ -27,15 +39,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  late File _image;
+  File? _image;
 
   // final picker = ImagePicker();
   // final pickedImage = await picker.pickImage(source: ImageSource.camera);
   Future<void> getImageFromCamera() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.camera);
-
-    log('ImagePicker + ${_cameraPermissionStatus.isGranted}');
     setState(() {
       if (pickedImage != null) {
         _image = File(pickedImage.path);
@@ -55,8 +65,12 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             const Text("صمم بواسطة حيدر صادق و زينه لؤي و علي صبحي "),
-            const TextField(
-              decoration: InputDecoration(
+            const SizedBox(
+              height: 8,
+            ),
+            TextField(
+              controller: date,
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "تاريخ الحادث ",
                   hintStyle: TextStyle(color: Colors.blue)),
@@ -93,6 +107,9 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 12.0,
             ),
+            _image == null
+                ? const Text('No image selected.')
+                : Image.file(_image!),
             OutlinedButton(
               onPressed: getImageFromCamera,
               child: const Text('Open Camera'),
