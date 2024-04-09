@@ -20,7 +20,7 @@ class MainScreen extends StatelessWidget {
             }));
           },
           style: const ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(
+            backgroundColor: WidgetStatePropertyAll(
               Colors.yellowAccent,
             ),
           ),
