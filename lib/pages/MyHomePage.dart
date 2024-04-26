@@ -134,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   iconColor: Colors.black),
             ),
             const TextField(
-              keyboardType: TextInputType.number,
+             
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "رقم المركبة السائق الاول",
@@ -150,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   iconColor: Colors.red),
             ),
             const TextField(
-              keyboardType: TextInputType.number,
+           
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "رقم المركبة السائق الثاني",
