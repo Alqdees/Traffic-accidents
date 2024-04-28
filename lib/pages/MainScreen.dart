@@ -10,7 +10,7 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.yellowAccent,
-        title: const Text('Traffic accidents'),
+        title: const Text('E_ Accident Report'),
       ),
       body: Center(
         child: OutlinedButton(
@@ -20,9 +20,7 @@ class MainScreen extends StatelessWidget {
             }));
           },
           style: const ButtonStyle(
-            backgroundColor: WidgetStatePropertyAll(
-              Colors.yellowAccent,
-            ),
+            
           ),
           child: const Text(
             "تسجيل حادث جديد",

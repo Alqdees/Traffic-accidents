@@ -62,9 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
       _currentPosition = position;
       location.text =
           "${_currentPosition!.latitude} , ${_currentPosition!.longitude}";
-      print(
-        'object ___________ ${_currentPosition!.latitude} + ${_currentPosition!.longitude}',
-      );
+      // print(
+      //   'object ___________ ${_currentPosition!.latitude} + ${_currentPosition!.longitude}',
+      // );
     });
   }
 
@@ -95,12 +95,15 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<String> itemsList = ['Item1', 'Item2', 'Item3', 'Item4'];
+  var v1, v2, v3, v4, v5;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.yellowAccent,
-        title: const Text('Traffic accidents'),
+        title: const Text('E_ Accident Report'),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
@@ -113,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const Text("صمم بواسطة حيدر صادق و زينه لؤي و علي صبحي "),
+            const Text("صمم بواسطة حيدر صادق و زينه لؤي "),
             const SizedBox(
               height: 8,
             ),
@@ -133,7 +136,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   iconColor: Colors.black),
             ),
             const TextField(
-             
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "رقم المركبة السائق الاول",
@@ -149,7 +151,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   iconColor: Colors.red),
             ),
             const TextField(
-           
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "رقم المركبة السائق الثاني",
@@ -159,12 +160,111 @@ class _MyHomePageState extends State<MyHomePage> {
               controller: location,
               decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: "لوكيشن الحادث",
+                  hintText: "موقع الحادث",
                   hintStyle: TextStyle(color: Colors.black),
                   icon: Icon(
                     Icons.location_on,
                   ),
                   iconColor: Colors.black),
+            ),
+            const TextField(
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "شاهد عيان الاول ان وجد",
+                  hintStyle:
+                      TextStyle(color: Color.fromARGB(255, 54, 57, 244))),
+            ),
+            const TextField(
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "شاهد عيان الثاني ان وجد",
+                  hintStyle:
+                      TextStyle(color: Color.fromARGB(255, 133, 252, 23))),
+            ),
+            DropdownButton(
+              hint: const Text("اضاءة "),
+              items: ["متوسطة", "جيدة", "معدومة"]
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e),
+                      ))
+                  .toList(),
+              onChanged: (val) {
+                setState(() {
+                  v1 = val;
+                });
+              },
+              value: v1,
+            ),
+            DropdownButton(
+              hint: const Text("سطح الطريق "),
+              items: ["مبلط ", "غير مبلط ", "تبليط مصدع "]
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e),
+                      ))
+                  .toList(),
+              onChanged: (val) {
+                setState(() {
+                  v2 = val;
+                });
+              },
+              value: v2,
+            ),
+            DropdownButton(
+              hint: const Text("الطقس  "),
+              items: ["معتدل", "ممطر", "غائم", "ضباب ", "غبار"]
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e),
+                      ))
+                  .toList(),
+              onChanged: (val) {
+                setState(() {
+                  v3 = val;
+                });
+              },
+              value: v3,
+            ),
+            DropdownButton(
+              hint: const Text("وقت وقوع الحادثة   "),
+              items: ["ليل", "نهار "]
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e),
+                      ))
+                  .toList(),
+              onChanged: (val) {
+                setState(() {
+                  v4 = val;
+                });
+              },
+              value: v4,
+            ),
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width - 20,
+              child: DropdownButton(
+                hint: const Text("نوع التصادم "),
+                items: ["وجة لوجة", "زاوية ", "خلفي"]
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Row(
+                            children: [
+                              Icon(Icons.safety_check),
+                              Text(e),
+                            ],
+                          ),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  setState(() {
+                    v5 = val;
+                  });
+                },
+                value: v5,
+              ),
             ),
             const SizedBox(
               height: 12.0,
