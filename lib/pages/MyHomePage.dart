@@ -118,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             const Text("صمم بواسطة حيدر صادق و زينه لؤي "),
             const SizedBox(
-              height: 8,
+              height:10 ,
             ),
             TextField(
               controller: date,
@@ -127,6 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   hintText: "تاريخ الحادث ",
                   hintStyle: TextStyle(color: Colors.blue)),
             ),
+            
             const TextField(
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -176,11 +177,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   hintText: "شاهد عيان الاول ان وجد",
                   hintStyle: TextStyle(color: Color.fromARGB(255, 54, 57, 244))),
             ),
+             const TextField(
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "ايفادة شاهد العيان الاول",
+                  hintStyle: TextStyle(color: Color.fromARGB(255, 54, 57, 244))),
+            ),
             const TextField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "شاهد عيان الثاني ان وجد",
+                  hintStyle: TextStyle(color: Color.fromARGB(255, 133, 252, 23))),
+            ),
+            const TextField(
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "ايفادة شاهد العيان الثاني ",
                   hintStyle: TextStyle(color: Color.fromARGB(255, 133, 252, 23))),
             ),
             DropdownButton(
@@ -200,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
              DropdownButton(
               hint: Text("سطح الطريق "),
-              items: ["مبلط ", "غير مبلط ","تبليط مصدع "]
+              items: ["مبلط ", "غير مبلط ","تبليط رديء "]
                   .map((e) => DropdownMenuItem(
                         child: Text("$e"),
                         value: e,
@@ -208,13 +223,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   .toList(),
               onChanged: (val) {
                 setState(() {
-                  selectedc = val ;
+                  selectedc = val;
                 });
               },
               value: selectedc,
             ),
             DropdownButton(
-              hint: Text("الطقس  "),
+              hint: Text("الطقس "),
               items: ["معتدل", "ممطر","غائم","ضباب ","غبار"]
                   .map((e) => DropdownMenuItem(
                         child: Text("$e"),
@@ -222,14 +237,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       ))
                   .toList(),
               onChanged: (val) {
+                selectedc = val ;
                 setState(() {
-                  selectedc = val ;
+                  
                 });
               },
               value: selectedc,
             ),
             DropdownButton(
-              hint: Text("وقت وقوع الحادثة   "),
+              hint: Text("وقت وقوع الحادثة "),
               items: ["ليل","نهار "]
                   .map((e) => DropdownMenuItem(
                         child: Text("$e"),
