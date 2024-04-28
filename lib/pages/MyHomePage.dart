@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -188,10 +187,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: MediaQuery.sizeOf(context).width - 50,
                     height: MediaQuery.sizeOf(context).height - 200,
                   ),
-            // OutlinedButton(
-            //   onPressed: getImageFromCamera,
-            //   child: const Text('Open Camera'),
-            // ),
           ],
         ),
       ),
