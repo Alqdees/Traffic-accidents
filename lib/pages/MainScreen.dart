@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:trafic/pages/MyHomePage.dart';
 
+import 'login_screen.dart';
+
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
@@ -16,7 +18,7 @@ class MainScreen extends StatelessWidget {
         child: OutlinedButton(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (_) {
-              return const MyHomePage();
+              return LoginScreen();
             }));
           },
           style: const ButtonStyle(

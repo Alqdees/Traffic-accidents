@@ -118,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             const Text("صمم بواسطة حيدر صادق و زينه لؤي "),
             const SizedBox(
-              height: 8,
+              height:10 ,
             ),
             TextField(
               controller: date,
@@ -127,6 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   hintText: "تاريخ الحادث ",
                   hintStyle: TextStyle(color: Colors.blue)),
             ),
+            
             const TextField(
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -175,6 +176,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   hintStyle:
                       TextStyle(color: Color.fromARGB(255, 54, 57, 244))),
             ),
+             const TextField(
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "ايفادة شاهد العيان الاول",
+                  hintStyle: TextStyle(color: Color.fromARGB(255, 54, 57, 244))),
+            ),
             const TextField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -182,6 +190,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   hintText: "شاهد عيان الثاني ان وجد",
                   hintStyle:
                       TextStyle(color: Color.fromARGB(255, 133, 252, 23))),
+            ),
+            const TextField(
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "ايفادة شاهد العيان الثاني ",
+                  hintStyle: TextStyle(color: Color.fromARGB(255, 133, 252, 23))),
             ),
             DropdownButton(
               hint: const Text("اضاءة "),
@@ -196,26 +211,59 @@ class _MyHomePageState extends State<MyHomePage> {
                   v1 = val;
                 });
               },
+<<<<<<< HEAD
               value: v1,
             ),
             DropdownButton(
               hint: const Text("سطح الطريق "),
               items: ["مبلط ", "غير مبلط ", "تبليط مصدع "]
+=======
+              value: selectedc,
+            ),
+             DropdownButton(
+              hint: Text("سطح الطريق "),
+              items: ["مبلط ", "غير مبلط ","تبليط رديء "]
+                  .map((e) => DropdownMenuItem(
+                        child: Text("$e"),
+                        value: e,
+                      ))
+                  .toList(),
+              onChanged: (val) {
+                setState(() {
+                  selectedc = val;
+                });
+              },
+              value: selectedc,
+            ),
+            DropdownButton(
+              hint: Text("الطقس "),
+              items: ["معتدل", "ممطر","غائم","ضباب ","غبار"]
+>>>>>>> 3d2748829f44e5651ad8f82a10f7a0b361ece553
                   .map((e) => DropdownMenuItem(
                         value: e,
                         child: Text(e),
                       ))
                   .toList(),
               onChanged: (val) {
+                selectedc = val ;
                 setState(() {
+<<<<<<< HEAD
                   v2 = val;
+=======
+                  
+>>>>>>> 3d2748829f44e5651ad8f82a10f7a0b361ece553
                 });
               },
               value: v2,
             ),
             DropdownButton(
+<<<<<<< HEAD
               hint: const Text("الطقس  "),
               items: ["معتدل", "ممطر", "غائم", "ضباب ", "غبار"]
+=======
+              hint: Text("وقت وقوع الحادثة "),
+              items: ["ليل","نهار "]
+>>>>>>> 3d2748829f44e5651ad8f82a10f7a0b361ece553
                   .map((e) => DropdownMenuItem(
                         value: e,
                         child: Text(e),
