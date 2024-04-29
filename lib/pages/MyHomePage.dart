@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -20,12 +23,28 @@ class _MyHomePageState extends State<MyHomePage> {
         ' - '
         '${DateTime.now().day}',
   );
+  
   TextEditingController name1 = TextEditingController();
   TextEditingController number1 = TextEditingController();
   TextEditingController name2 = TextEditingController();
   TextEditingController number = TextEditingController();
   TextEditingController location = TextEditingController();
   Position? _currentPosition;
+  TimeOfDay _selectedTime = TimeOfDay.now(); 
+  // Default selected time
+  // Show a time picker dialog
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: _selectedTime,
+    );
+    if (picked != null && picked != _selectedTime) {
+      setState(() {
+        _selectedTime = picked;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -96,7 +115,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<String> itemsList = ['Item1', 'Item2', 'Item3', 'Item4'];
-  var v1, v2, v3, v4, v5;
+  var v1, v2, v3, v4, v5, v6 ,v7,v8,v9,v10,v11;
+bool? hasDriverLicense1,hasDriverLicense2;
+  final List<int> numbers = List.generate(86, (index) => index + 14);
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +148,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   hintText: "تاريخ الحادث ",
                   hintStyle: TextStyle(color: Colors.blue)),
             ),
-            
+             Text(
+              'Selected Time: ${_selectedTime.format(context)}', // Display the selected time
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                _selectTime(context); // Show a time picker dialog
+              },
+              child: Text('Select Time'),
+            ),
             const TextField(
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -136,13 +167,219 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: Icon(Icons.person),
                   iconColor: Colors.black),
             ),
-            const TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "رقم المركبة السائق الاول",
-                hintStyle: TextStyle(color: Colors.black),
+            
+            Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'هل السائق لديه رخصة قيادة(اجازة سوق)؟',
+                style: TextStyle(fontSize: 18.0),
+              ),
+              SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        hasDriverLicense1 = true;
+                      });
+                    },
+                    child: Text('نعم امتلك رخصة قيادة'),
+                  ),
+                  SizedBox(width: 20.0),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        hasDriverLicense1 = false;
+                      });
+                    },
+                    child: Text('كلا لا امتلك رخصة قيادة'),
+                    
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.0),
+              if (hasDriverLicense1 != null)
+                Text(
+                  'السائق لديه رخصة: ${hasDriverLicense1 == true ? "السائق يمتلك رخصة قيادة" : "كلا لايمتلك رخصة قيادة"}',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+            ],
+          ),
+        ),
+        SizedBox(
+              width: MediaQuery.sizeOf(context).width - 30,
+              child: DropdownButton(
+                hint: const Text("عمر السائق"),
+                items: ["12",
+"13",
+"14",
+"15",
+"16",
+"17",
+"18",
+"19",
+"20",
+"21",
+"22",
+"23",
+"24",
+"25",
+"26",
+"27",
+"28",
+"29",
+"30",
+"31",
+"32",
+"33",
+"34",
+"35",
+"36",
+"37",
+"38",
+"39",
+"40",
+"41",
+"42",
+"43",
+"44",
+"45",
+"46",
+"47",
+"48",
+"49",
+"50",
+"51",
+"52",
+"53",
+"54",
+"55",
+"56",
+"57",
+"58",
+"59",
+"60",
+"61",
+"62",
+"63",
+"64",
+"65",
+"66",
+"67",
+"68",
+"69",
+"70",
+"71",
+"72",
+"73",
+"74",
+"75",
+"76",
+"77",
+"78",
+"79",
+"80",
+"81",
+"82",
+"83",
+"84",
+"85",
+"86",
+"87",
+"88",
+]
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  setState(() {
+                    v8 = val;
+                  });
+                },
+                value: v8,
               ),
             ),
+        
+            Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:  [
+                    Flexible(
+                child: TextField(
+                  keyboardType: TextInputType.number, // Specify numeric keyboard
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly // Allow only digits
+                  ],
+                  decoration: InputDecoration(
+                    hintText: 'رقم مركبة السائق الاول ',
+                    border: OutlineInputBorder(),
+                     icon: Icon(Icons.numbers),
+                  ),
+                ),
+              ), // Text input field
+               const SizedBox(width: 10), // Text input field
+                      DropdownButton(
+              hint: const Text("حرف"),
+              items: [
+    'ا', 'ب', 'ت', 'ث', 'ج', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ك', 'ل', 'م', 'ن', 'ه', 'و', 'ي'
+  ]
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e),
+                      ))
+                  .toList(),
+              onChanged: (val) {
+                setState(() {
+                  v10 = val;
+                });
+              },
+
+              value: v10,
+            ),
+            const SizedBox(width: 10), // Text input field
+                      DropdownButton(
+              hint: const Text("محافظة"),
+              items: [
+                 '11 بغداد',
+                 '12 نينوى',
+                 '13 ميسان',
+                 '14 البصرة',
+                 '15 الأنبار',
+                 '16 القادسية',
+                 '17 المثنى',
+                 '18 بابل',
+                 '19 كربلاء',
+                 '20 ديالى',
+                 '21 السليمانية',
+                 '22 أربيل',
+                 'حلبجة 23 ',
+                 '24 دهوك',
+                 '25 كركوك',
+                 '26 صلاح الدين',
+                 '27 ذي قار',
+                 ' 30 النجف',
+                 '31 واسط',
+              ]
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e),
+                      ))
+                  .toList(),
+              onChanged: (val) {
+                setState(() {
+                  v9 = val;
+                });
+              },
+
+              value: v9,
+            ),
+            
+                  ],
+                ),
             const TextField(
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -151,12 +388,247 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: Icon(Icons.person),
                   iconColor: Colors.red),
             ),
-            const TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "رقم المركبة السائق الثاني",
-                  hintStyle: TextStyle(color: Colors.red)),
+            Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'هل السائق لديه رخصة قيادة(اجازة سوق)؟',
+                style: TextStyle(fontSize: 18.0),
+              ),
+              SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        hasDriverLicense2 = true;
+                      });
+                    },
+                    child: Text('نعم امتلك رخصة قيادة'),
+                  ),
+                  SizedBox(width: 20.0),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        hasDriverLicense2 = false;
+                      });
+                    },
+                    child: Text('كلا لا امتلك رخصة قيادة'),
+                    
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.0),
+              if (hasDriverLicense2 != null)
+                Text(
+                  'السائق لديه رخصة: ${hasDriverLicense2 == true ? "السائق يمتلك رخصة قيادة" : "كلا لايمتلك رخصة قيادة"}',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+            ],
+          ),
+        ),
+        SizedBox(
+              width: MediaQuery.sizeOf(context).width - 30,
+              child: DropdownButton(
+                hint: const Text("عمر السائق"),
+                items: ["12",
+"13",
+"14",
+"15",
+"16",
+"17",
+"18",
+"19",
+"20",
+"21",
+"22",
+"23",
+"24",
+"25",
+"26",
+"27",
+"28",
+"29",
+"30",
+"31",
+"32",
+"33",
+"34",
+"35",
+"36",
+"37",
+"38",
+"39",
+"40",
+"41",
+"42",
+"43",
+"44",
+"45",
+"46",
+"47",
+"48",
+"49",
+"50",
+"51",
+"52",
+"53",
+"54",
+"55",
+"56",
+"57",
+"58",
+"59",
+"60",
+"61",
+"62",
+"63",
+"64",
+"65",
+"66",
+"67",
+"68",
+"69",
+"70",
+"71",
+"72",
+"73",
+"74",
+"75",
+"76",
+"77",
+"78",
+"79",
+"80",
+"81",
+"82",
+"83",
+"84",
+"85",
+"86",
+"87",
+"88",
+]
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  setState(() {
+                    v11 = val;
+                  });
+                },
+                value: v11,
+              ),
             ),
+            Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:  [
+                    Flexible(
+                child: TextField(
+                  keyboardType: TextInputType.number, // Specify numeric keyboard
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly // Allow only digits
+                  ],
+                  decoration: InputDecoration(
+                    hintText: 'رقم مركبة السائق الثاني ',
+                    border: OutlineInputBorder(),
+                     icon: Icon(Icons.numbers),
+                  ),
+                ),
+              ), // Text input field
+               const SizedBox(width: 10), // Text input field
+                      DropdownButton(
+              hint: const Text("حرف"),
+              items: [
+    'ا', 'ب', 'ت', 'ث', 'ج', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ك', 'ل', 'م', 'ن', 'ه', 'و', 'ي'
+  ]
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e),
+                      ))
+                  .toList(),
+              onChanged: (val) {
+                setState(() {
+                  v7 = val;
+                });
+              },
+
+              value: v7,
+            ),
+            const SizedBox(width: 10), // Text input field
+                      DropdownButton(
+              hint: const Text("محافظة"),
+              items: [
+                 '11 بغداد',
+                 '12 نينوى',
+                 '13 ميسان',
+                 '14 البصرة',
+                 '15 الأنبار',
+                 '16 القادسية',
+                 '17 المثنى',
+                 '18 بابل',
+                 '19 كربلاء',
+                 '20 ديالى',
+                 '21 السليمانية',
+                 '22 أربيل',
+                 'حلبجة 23 ',
+                 '24 دهوك',
+                 '25 كركوك',
+                 '26 صلاح الدين',
+                 '27 ذي قار',
+                 ' 30 النجف',
+                 '31 واسط',
+              ]
+                  .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e),
+                      ))
+                  .toList(),
+              onChanged: (val) {
+                setState(() {
+                  v6 = val;
+                });
+              },
+
+              value: v6,
+            ),
+            
+                  ],
+                ),
+          //   Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: <Widget>[
+          //    // Icon(Icons.favorite, color: Colors.red), // أيقونة
+          //     //SizedBox(width: 10), // فاصل أفقي
+          //     const TextField(
+          //     decoration: const InputDecoration(
+          //         border: OutlineInputBorder(),
+          //         hintText: "رقم المركبة السائق الثاني",
+          //         hintStyle: TextStyle(color: Colors.red),),
+          //   ), // نص
+          //     const SizedBox(width: 10), // فاصل أفقي
+          //      DropdownButton(
+          //     hint: const Text("اضاءة "),
+          //     items: ["متوسطة", "جيدة", "معدومة"]
+          //         .map((e) => DropdownMenuItem(
+          //               value: e,
+          //               child: Text(e),
+          //             ))
+          //         .toList(),
+          //     onChanged: (val) {
+          //       setState(() {
+          //         v6 = val;
+          //       });
+          //     },
+
+          //     value: v6,
+          //   ), // نص
+          //   ],
+          // ),
             TextField(
               controller: location,
               decoration: const InputDecoration(
@@ -211,85 +683,82 @@ class _MyHomePageState extends State<MyHomePage> {
                   v1 = val;
                 });
               },
-<<<<<<< HEAD
+
               value: v1,
             ),
-            DropdownButton(
-              hint: const Text("سطح الطريق "),
-              items: ["مبلط ", "غير مبلط ", "تبليط مصدع "]
-=======
-              value: selectedc,
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width - 30,
+              child: DropdownButton(
+                hint: const Text("سطح الطريق "),
+                items: ["مبلط ", "غير مبلط ","تبليط رديء "]
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  setState(() {
+                    v2 = val;
+                  });
+                },
+                value: v2,
+              ),
             ),
-             DropdownButton(
-              hint: Text("سطح الطريق "),
-              items: ["مبلط ", "غير مبلط ","تبليط رديء "]
-                  .map((e) => DropdownMenuItem(
-                        child: Text("$e"),
-                        value: e,
-                      ))
-                  .toList(),
-              onChanged: (val) {
-                setState(() {
-                  selectedc = val;
-                });
-              },
-              value: selectedc,
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width - 30,
+              child: DropdownButton(
+                hint: const Text("الطقس"),
+                items: ["معتدل", "ممطر","غائم","ضباب ","غبار"]
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  setState(() {
+                    v3 = val;
+                  });
+                },
+                value: v3,
+              ),
             ),
-            DropdownButton(
-              hint: Text("الطقس "),
-              items: ["معتدل", "ممطر","غائم","ضباب ","غبار"]
->>>>>>> 3d2748829f44e5651ad8f82a10f7a0b361ece553
-                  .map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Text(e),
-                      ))
-                  .toList(),
-              onChanged: (val) {
-                selectedc = val ;
-                setState(() {
-<<<<<<< HEAD
-                  v2 = val;
-=======
-                  
->>>>>>> 3d2748829f44e5651ad8f82a10f7a0b361ece553
-                });
-              },
-              value: v2,
-            ),
-            DropdownButton(
-<<<<<<< HEAD
-              hint: const Text("الطقس  "),
-              items: ["معتدل", "ممطر", "غائم", "ضباب ", "غبار"]
-=======
-              hint: Text("وقت وقوع الحادثة "),
-              items: ["ليل","نهار "]
->>>>>>> 3d2748829f44e5651ad8f82a10f7a0b361ece553
-                  .map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Text(e),
-                      ))
-                  .toList(),
-              onChanged: (val) {
-                setState(() {
-                  v3 = val;
-                });
-              },
-              value: v3,
-            ),
-            DropdownButton(
-              hint: const Text("وقت وقوع الحادثة   "),
-              items: ["ليل", "نهار "]
-                  .map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Text(e),
-                      ))
-                  .toList(),
-              onChanged: (val) {
-                setState(() {
-                  v4 = val;
-                });
-              },
-              value: v4,
+            // DropdownButton(
+
+              // hint: const Text("الطقس  "),
+              // items: ["معتدل", "ممطر", "غائم", "ضباب ", "غبار"],
+
+              // hint: const Text("وقت وقوع الحادثة "),
+              // items: ["ليل","نهار "]
+
+              //     .map((e) => DropdownMenuItem(
+            //             value: e,
+            //             child: Text(e),
+            //           ))
+            //       .toList(),
+            //   onChanged: (val) {
+            //     setState(() {
+            //       v3 = val;
+            //     });
+            //   },
+            //   value: v3,
+            // ),
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width - 30,
+              child: DropdownButton(
+                hint: const Text("وقت وقوع الحادثة   "),
+                items: ["ليل", "نهار "]
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  setState(() {
+                    v4 = val;
+                  });
+                },
+                value: v4,
+              ),
             ),
             SizedBox(
               width: MediaQuery.sizeOf(context).width - 20,
@@ -300,7 +769,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           value: e,
                           child: Row(
                             children: [
-                              Icon(Icons.safety_check),
+                              Icon(FontAwesomeIcons.car),
                               Text(e),
                             ],
                           ),

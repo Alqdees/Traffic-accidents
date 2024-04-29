@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:trafic/firebase_options.dart';
 import 'package:trafic/pages/MainScreen.dart';
 import 'package:trafic/pages/login_screen.dart';
+import 'package:flutter/material.dart';
+
 
 
 void main() async{
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'E_ Accident Report',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple,

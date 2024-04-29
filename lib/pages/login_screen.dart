@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:trafic/pages/MyHomePage.dart';
 
 import 'animated_text_field.dart';
+import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -50,18 +51,35 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 80),
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: Image.asset(
-                      'assets/images/avatar.png',
-                      width: 130,
-                      height: 130,
-                    ),
-                  )
+                    child: Image.asset('images/Trafficaccidents.jpg',
+                    width: 400,
+                    height: 400,)
+
+                    // child: Image.asset(
+                    //   'images\Trafficaccidents.jpg',
+                    //   width: 130,
+                    //   height: 130,
+                    // ),
+                  ),
+                  
+                  // const Center(child: Text(
+                  //         "E-Accident Report",
+                  //         style: TextStyle(fontSize: 40, color: const Color.fromARGB(255, 238, 5, 5)),
+                  //       ),)
                 ],
               ),
             ),
             const SizedBox(
+              height: 10,
+            ),
+            Text(
+                          "E-Accident Report",
+                          style: TextStyle(fontSize: 40, color: const Color.fromARGB(255, 238, 5, 5)),
+                        ),
+                         const SizedBox(
               height: 30,
             ),
             AnimatedTextField(
